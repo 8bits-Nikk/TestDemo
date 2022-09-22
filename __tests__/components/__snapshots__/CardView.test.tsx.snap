@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardView Tests Should render correctly 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fff",
+      "borderRadius": 16,
+      "flex": 1,
+      "flexDirection": "row",
+      "marginBottom": 12,
+      "opacity": 1,
+      "padding": 16,
+    }
+  }
+  testID="card-view"
+>
+  <Text
+    numberOfLines={1}
+    style={
+      Object {
+        "flex": 0.8,
+        "fontSize": 16,
+      }
+    }
+    testID="card-name"
+  >
+    Test
+  </Text>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 0.2,
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#ff0000",
+            "borderRadius": 8,
+            "marginEnd": 8,
+            "padding": 6,
+          },
+          Object {
+            "backgroundColor": "#00ff00",
+          },
+        ]
+      }
+      testID="status-dot"
+    />
+    <Text
+      testID="card-status"
+    >
+      active
+    </Text>
+  </View>
+</View>
+`;
