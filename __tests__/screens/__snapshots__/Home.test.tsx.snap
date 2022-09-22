@@ -14,15 +14,49 @@ exports[`HomeScreen Tests Render correctly 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "#aabbdd",
+        "flexDirection": "row",
         "padding": 16,
       }
     }
   >
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/assets/arrow.png",
+          }
+        }
+        style={
+          Object {
+            "height": 24,
+            "width": 24,
+          }
+        }
+      />
+    </View>
     <Text
       style={
         Object {
+          "alignItems": "center",
           "fontSize": 18,
           "fontWeight": "bold",
+          "marginStart": 16,
         }
       }
     >
@@ -30,9 +64,14 @@ exports[`HomeScreen Tests Render correctly 1`] = `
     </Text>
   </View>
   <View>
+    <Text
+      testID="welcome-name"
+    >
+      Welcome 
+    </Text>
     <Text>
       Today's Date: 
-      21/09/2022
+      22/09/2022
     </Text>
   </View>
   <View
@@ -67,8 +106,10 @@ exports[`HomeScreen Tests Render correctly 1`] = `
           <Text
             style={
               Object {
+                "alignItems": "center",
                 "fontSize": 18,
                 "fontWeight": "bold",
+                "marginStart": 16,
               }
             }
           >

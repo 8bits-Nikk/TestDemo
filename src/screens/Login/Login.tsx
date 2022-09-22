@@ -43,12 +43,14 @@ const Login = () => {
         onChangeText={text => setUserName(text)}
         style={style.textInput}
         placeholder={'UserName'}
+        value={userName}
       />
       <TextInput
         testID={'password-input'}
         onChangeText={text => setPassword(text)}
         style={style.textInput}
         placeholder={'Password'}
+        value={password}
       />
       <Button title={'LOGIN'} onPress={onLogin} testID={'login-btn'} />
       <TouchableOpacity

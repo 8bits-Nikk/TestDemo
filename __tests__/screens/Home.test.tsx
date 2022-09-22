@@ -1,8 +1,43 @@
 import React from 'react';
 import {renderWithNavigatorAndRedux} from '../../helpers/renderWithNavigatorAndRedux';
 import Home from '../../src/screens/Home/Home';
-import {act, cleanup, screen} from '@testing-library/react-native';
+import {cleanup, screen, within} from '@testing-library/react-native';
 import {UsersActions} from '../../src/service/users';
+import asyncStorage from '../../src/service/async-storage/asyncStorage';
+
+import TestRenderer, {act} from 'react-test-renderer';
+import {NavigationContainer} from '@react-navigation/native';
+import {Provider} from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import {applyMiddleware, createStore} from 'redux';
+import rootReducer from '../../src/App.reducers';
+import root from '../../src/App.sagas';
+
+import {useDispatch, useSelector} from 'react-redux';
+
+const data = [
+  {
+    id: 2280,
+    name: 'Dhanadeepa Guneta',
+    email: 'guneta_dhanadeepa@bayer-schmitt.net',
+    gender: 'female',
+    status: 'inactive',
+  },
+  {
+    id: 2275,
+    name: 'Mani Naik Esq.',
+    email: 'naik_esq_mani@bergnaum-labadie.io',
+    gender: 'male',
+    status: 'inactive',
+  },
+  {
+    id: 2274,
+    name: 'Vaijayanthi Mishra',
+    email: 'mishra_vaijayanthi@mayert.co',
+    gender: 'female',
+    status: 'active',
+  },
+];
 
 describe('HomeScreen Tests', () => {
   afterEach(() => {
@@ -15,84 +50,68 @@ describe('HomeScreen Tests', () => {
   });
 
   it('Should render with data', () => {
-    const data = [
-      {
-        id: 2280,
-        name: 'Dhanadeepa Guneta',
-        email: 'guneta_dhanadeepa@bayer-schmitt.net',
-        gender: 'female',
-        status: 'inactive',
-      },
-      {
-        id: 2275,
-        name: 'Mani Naik Esq.',
-        email: 'naik_esq_mani@bergnaum-labadie.io',
-        gender: 'male',
-        status: 'inactive',
-      },
-      {
-        id: 2274,
-        name: 'Vaijayanthi Mishra',
-        email: 'mishra_vaijayanthi@mayert.co',
-        gender: 'female',
-        status: 'active',
-      },
-      {
-        id: 2273,
-        name: 'Yoginder Nayar',
-        email: 'yoginder_nayar@luettgen-mraz.com',
-        gender: 'male',
-        status: 'active',
-      },
-      {
-        id: 2272,
-        name: 'Trilok Chopra',
-        email: 'chopra_trilok@lehner-hansen.name',
-        gender: 'male',
-        status: 'active',
-      },
-      {
-        id: 2270,
-        name: 'Balagopal Embranthiri Ret.',
-        email: 'embranthiri_balagopal_ret@cormier.net',
-        gender: 'female',
-        status: 'active',
-      },
-      {
-        id: 2269,
-        name: 'Mrs. Shreya Deshpande',
-        email: 'deshpande_shreya_mrs@konopelski.com',
-        gender: 'male',
-        status: 'inactive',
-      },
-      {
-        id: 2268,
-        name: 'Uttam Ahluwalia',
-        email: 'ahluwalia_uttam@gislason-luettgen.org',
-        gender: 'female',
-        status: 'active',
-      },
-      {
-        id: 2267,
-        name: 'Aatreya Marar',
-        email: 'aatreya_marar@sawayn-beahan.info',
-        gender: 'female',
-        status: 'inactive',
-      },
-      {
-        id: 2266,
-        name: 'Chiranjeev Reddy MD',
-        email: 'chiranjeev_md_reddy@mante-bogisich.biz',
-        gender: 'male',
-        status: 'inactive',
-      },
-    ];
     renderWithNavigatorAndRedux(<Home />, store =>
       store.dispatch(UsersActions.addUsers(data)),
     );
 
     const list = screen.queryByTestId('flatList-user');
     expect(list?.props.data).toBe(data);
-    expect(list?.props.data.length).toBe(10);
+    expect(list?.props.data.length).toBe(3);
+  });
+
+  it('Should render card with data ', () => {
+    renderWithNavigatorAndRedux(<Home />, store =>
+      store.dispatch(UsersActions.addUsers(data)),
+    );
+
+    const list = screen.queryByTestId('flatList-user');
+    expect(list?.props.data).toBe(data);
+    expect(list?.props.data.length).toBe(3);
+    const card = screen?.queryAllByTestId('card-name');
+    card.forEach((ele, index) => {
+      expect(ele.props.children).toBe(data[index].name);
+    });
+  });
+});
+
+describe('Async Redux Test', () => {
+  beforeEach(() => {
+    asyncStorage.setLoginStatus({userName: 'Test', password: '123'});
+    useDispatchMock.mockClear();
+    useSelectorMock.mockClear();
+  });
+
+  const reactRedux = {useDispatch, useSelector};
+  const useDispatchMock = jest.spyOn(reactRedux, 'useDispatch');
+  const useSelectorMock = jest.spyOn(reactRedux, 'useSelector');
+
+  const mockDispatch = jest.fn();
+  useSelectorMock.mockReturnValue(data);
+  useDispatchMock.mockReturnValue(mockDispatch);
+
+  test('userName test', async () => {
+    const sagaMiddleware = createSagaMiddleware();
+    let mockStore = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+    sagaMiddleware.run(root);
+    mockStore.dispatch = mockDispatch;
+    let tree: TestRenderer.ReactTestRenderer;
+    await act(() => {
+      tree = TestRenderer.create(
+        <NavigationContainer>
+          <Provider store={mockStore}>
+            <Home />
+          </Provider>
+        </NavigationContainer>,
+      );
+    });
+    const instance = within(tree!.root);
+    const name = instance.queryByTestId('welcome-name');
+    expect(name?.props.children).toStrictEqual(['Welcome ', 'Test']);
+
+    expect(mockDispatch).toHaveBeenCalled();
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: 'GET_USERS',
+      payload: {pageNo: 1},
+    });
   });
 });

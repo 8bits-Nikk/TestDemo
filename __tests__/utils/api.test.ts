@@ -7,7 +7,7 @@ describe('API tests', () => {
 
     // @ts-ignore
     const data: any[] = response.data;
-
+    console.log(response);
     expect(response.ok).toBe(true);
     expect(response.status).toBe(200);
     expect(data.length).not.toBe(0);

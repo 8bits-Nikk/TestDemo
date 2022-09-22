@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
   FlatList,
@@ -20,9 +20,13 @@ import asyncStorage from '../../service/async-storage/asyncStorage';
 const Home = () => {
   const navigation = useNavigation();
   const users = useSelector(UsersSelectors.getUsers, shallowEqual);
+  const [currentUser, setCurrentUser] = useState({userName: '', password: ''});
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(UsersActions.getUsers(1));
+    asyncStorage.getLoginStatus().then(user => {
+      setCurrentUser(user);
+    });
   }, []);
 
   const onLogout = () => {
@@ -44,6 +48,7 @@ const Home = () => {
         <Text style={style.headerTxt}>Users</Text>
       </View>
       <View>
+        <Text testID={'welcome-name'}>Welcome {currentUser.userName}</Text>
         <Text>
           Today's Date: {formatDate(new Date(), DateFormats.DateOnly)}
         </Text>

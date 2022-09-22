@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {IUsers} from '../service/users/users';
-import {NavigationProp} from '@react-navigation/native';
 
 type props = {
   item: IUsers;

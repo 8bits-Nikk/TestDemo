@@ -52,8 +52,7 @@ const setLoginStatus = async (user: {userName: string; password: string}) => {
 };
 const resetLoginStatus = async () => {
   try {
-    const userString = JSON.stringify(null);
-    await AsyncStorage.setItem('@login_status', userString);
+    await AsyncStorage.removeItem('@login_status');
     return true;
   } catch (e) {
     return false;
