@@ -4,7 +4,7 @@ import api from '../api';
 import {Action} from './users';
 import UsersTypes from './users.types';
 
-function* fetchUsers(action: Action<any>): any {
+export function* fetchUsers(action: Action<any>): any {
   try {
     const pageNo = action.payload?.pageNo || 1;
     const response = yield call(api.getUsers, pageNo);

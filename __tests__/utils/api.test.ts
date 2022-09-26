@@ -11,6 +11,16 @@ describe('API tests', () => {
     expect(response.status).toBe(200);
     expect(data.length).not.toBe(0);
   });
+
+  it("Should return user's details", async () => {
+    const response = await api.getUserDetails(81);
+
+    // @ts-ignore
+    const data: any[] = response.data;
+    expect(response.ok).toBe(true);
+    expect(response.status).toBe(200);
+    expect(data.length).not.toBe(0);
+  });
 });
 
 const BASE_URL = 'https://jsonplaceholder.typicode.com';

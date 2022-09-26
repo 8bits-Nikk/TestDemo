@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1663863948695" clover="3.2.0">
-  <project timestamp="1663863948695" name="All files">
-    <metrics statements="136" coveredstatements="124" conditionals="29" coveredconditionals="24" methods="46" coveredmethods="45" elements="211" coveredelements="193" complexity="0" loc="136" ncloc="136" packages="12" files="21" classes="21"/>
+<coverage generated="1664180443133" clover="3.2.0">
+  <project timestamp="1664180443133" name="All files">
+    <metrics statements="136" coveredstatements="128" conditionals="29" coveredconditionals="25" methods="46" coveredmethods="46" elements="211" coveredelements="199" complexity="0" loc="136" ncloc="136" packages="12" files="21" classes="21"/>
     <package name="helpers">
       <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
       <file name="renderWithNavigatorAndRedux.tsx" path="/Users/pcq242/Documents/ReactNative/TestDemo/helpers/renderWithNavigatorAndRedux.tsx">
@@ -18,7 +18,7 @@
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="App.reducers.ts" path="/Users/pcq242/Documents/ReactNative/TestDemo/src/App.reducers.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="4" count="9" type="stmt"/>
+        <line num="4" count="11" type="stmt"/>
       </file>
       <file name="App.sagas.ts" path="/Users/pcq242/Documents/ReactNative/TestDemo/src/App.sagas.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -138,17 +138,17 @@
       </file>
     </package>
     <package name="src.service.api">
-      <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="1"/>
+      <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="api.ts" path="/Users/pcq242/Documents/ReactNative/TestDemo/src/service/api/api.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="3" count="9" type="stmt"/>
+        <line num="3" count="11" type="stmt"/>
       </file>
       <file name="index.ts" path="/Users/pcq242/Documents/ReactNative/TestDemo/src/service/api/index.ts">
-        <metrics statements="4" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="1"/>
-        <line num="3" count="9" type="cond" truecount="0" falsecount="1"/>
-        <line num="4" count="6" type="stmt"/>
-        <line num="7" count="9" type="cond" truecount="0" falsecount="1"/>
-        <line num="8" count="0" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="3" count="11" type="cond" truecount="0" falsecount="1"/>
+        <line num="4" count="8" type="stmt"/>
+        <line num="7" count="11" type="cond" truecount="0" falsecount="1"/>
+        <line num="8" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.service.async-storage">
@@ -200,38 +200,38 @@
       </file>
     </package>
     <package name="src.service.users">
-      <metrics statements="17" coveredstatements="12" conditionals="7" coveredconditionals="4" methods="7" coveredmethods="7"/>
+      <metrics statements="17" coveredstatements="15" conditionals="7" coveredconditionals="5" methods="7" coveredmethods="7"/>
       <file name="index.ts" path="/Users/pcq242/Documents/ReactNative/TestDemo/src/service/users/index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
       <file name="users.actions.ts" path="/Users/pcq242/Documents/ReactNative/TestDemo/src/service/users/users.actions.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="3" count="9" type="stmt"/>
-        <line num="8" count="9" type="stmt"/>
+        <line num="3" count="11" type="stmt"/>
+        <line num="8" count="11" type="stmt"/>
       </file>
       <file name="users.reducers.ts" path="/Users/pcq242/Documents/ReactNative/TestDemo/src/service/users/users.reducers.ts">
         <metrics statements="4" coveredstatements="4" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
-        <line num="4" count="9" type="stmt"/>
-        <line num="12" count="46" type="cond" truecount="2" falsecount="0"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="19" count="44" type="stmt"/>
+        <line num="4" count="11" type="stmt"/>
+        <line num="12" count="52" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="19" count="49" type="stmt"/>
       </file>
       <file name="users.sagas.ts" path="/Users/pcq242/Documents/ReactNative/TestDemo/src/service/users/users.sagas.ts">
-        <metrics statements="9" coveredstatements="4" conditionals="4" coveredconditionals="1" methods="2" coveredmethods="2"/>
-        <line num="8" count="5" type="stmt"/>
-        <line num="9" count="5" type="cond" truecount="1" falsecount="1"/>
-        <line num="10" count="5" type="stmt"/>
-        <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
+        <metrics statements="9" coveredstatements="7" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="9" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="11" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
         <line num="15" count="0" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
         <line num="23" count="21" type="stmt"/>
       </file>
       <file name="users.selector.ts" path="/Users/pcq242/Documents/ReactNative/TestDemo/src/service/users/users.selector.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="3" count="9" type="stmt"/>
-        <line num="5" count="9" type="stmt"/>
+        <line num="3" count="11" type="stmt"/>
+        <line num="5" count="11" type="stmt"/>
       </file>
       <file name="users.types.ts" path="/Users/pcq242/Documents/ReactNative/TestDemo/src/service/users/users.types.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>

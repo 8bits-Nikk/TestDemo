@@ -72,7 +72,7 @@ exports[`HomeScreen Tests Render correctly 1`] = `
     </Text>
     <Text>
       Today's Date: 
-      22/09/2022
+      26/09/2022
     </Text>
   </View>
   <View
