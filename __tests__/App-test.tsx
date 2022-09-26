@@ -12,8 +12,6 @@ test('Render Correctly', () => {
       <Text>Hello App</Text>
     </View>,
   );
-  const ele = screen.queryByText('Hello App');
-  expect(ele?.props.children).toBe('Hello App');
+  const element = screen.queryByText('Hello App');
+  expect(element?.props.children).toBe('Hello App');
 });
-
-export {};

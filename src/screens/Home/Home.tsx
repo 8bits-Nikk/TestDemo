@@ -42,7 +42,7 @@ const Home = () => {
   return (
     <SafeAreaView style={style.body}>
       <View style={style.header}>
-        <TouchableOpacity onPress={onLogout}>
+        <TouchableOpacity onPress={onLogout} testID={'logout-btn'}>
           <Image source={imgBack} style={{height: 24, width: 24}} />
         </TouchableOpacity>
         <Text style={style.headerTxt}>Users</Text>

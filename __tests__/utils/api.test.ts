@@ -7,7 +7,6 @@ describe('API tests', () => {
 
     // @ts-ignore
     const data: any[] = response.data;
-    console.log(response);
     expect(response.ok).toBe(true);
     expect(response.status).toBe(200);
     expect(data.length).not.toBe(0);
@@ -23,15 +22,14 @@ const fetchUsersDummy = async () => {
     return [];
   }
 };
-
 describe('Dummy API Test', () => {
+  const mockApi = jest.spyOn(axios, 'get');
   it('should return users list', async () => {
     // given
     const users = [{name: 'Bob'}];
     const resp = [{name: 'Bob'}];
 
-    // @ts-ignore
-    axios.get.mockImplementationOnce(() => Promise.resolve(resp));
+    mockApi.mockImplementationOnce(() => Promise.resolve(resp));
     // when
     const result = await fetchUsersDummy();
 

@@ -35,6 +35,7 @@ exports[`HomeScreen Tests Render correctly 1`] = `
           "opacity": 1,
         }
       }
+      testID="logout-btn"
     >
       <Image
         source={

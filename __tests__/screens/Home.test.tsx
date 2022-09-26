@@ -1,7 +1,13 @@
 import React from 'react';
 import {renderWithNavigatorAndRedux} from '../../helpers/renderWithNavigatorAndRedux';
 import Home from '../../src/screens/Home/Home';
-import {cleanup, screen, within} from '@testing-library/react-native';
+import {
+  cleanup,
+  fireEvent,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react-native';
 import {UsersActions} from '../../src/service/users';
 import asyncStorage from '../../src/service/async-storage/asyncStorage';
 
@@ -14,6 +20,7 @@ import rootReducer from '../../src/App.reducers';
 import root from '../../src/App.sagas';
 
 import {useDispatch, useSelector} from 'react-redux';
+import {Alert} from 'react-native';
 
 const data = [
   {
@@ -38,6 +45,18 @@ const data = [
     status: 'active',
   },
 ];
+const mockNavigation = jest.fn();
+const mockResetNavigation = jest.fn();
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: mockNavigation,
+    reset: mockResetNavigation,
+  }),
+}));
+
+const mockReset = jest.spyOn(asyncStorage, 'resetLoginStatus');
+const mockAlert = jest.spyOn(Alert, 'alert');
 
 describe('HomeScreen Tests', () => {
   afterEach(() => {
@@ -70,6 +89,10 @@ describe('HomeScreen Tests', () => {
     const card = screen?.queryAllByTestId('card-name');
     card.forEach((ele, index) => {
       expect(ele.props.children).toBe(data[index].name);
+
+      fireEvent.press(ele);
+      expect(mockNavigation).toHaveBeenCalled();
+      expect(mockNavigation).toHaveBeenCalledWith('PostScreen');
     });
   });
 });
@@ -113,5 +136,36 @@ describe('Async Redux Test', () => {
       type: 'GET_USERS',
       payload: {pageNo: 1},
     });
+  });
+
+  test('Logout test', async () => {
+    mockReset.mockReturnValue(Promise.resolve(true));
+    renderWithNavigatorAndRedux(<Home />);
+
+    const logoutButton = screen.getByTestId('logout-btn');
+
+    await waitFor(() => {
+      fireEvent.press(logoutButton);
+    });
+
+    expect(mockReset).toHaveBeenCalled();
+    expect(mockResetNavigation).toHaveBeenCalled();
+    expect(mockResetNavigation).toHaveBeenCalledWith({
+      routes: [{name: 'LoginScreen'}],
+    });
+  });
+  test('Logout Error test', async () => {
+    mockReset.mockReturnValue(Promise.resolve(false));
+    renderWithNavigatorAndRedux(<Home />);
+
+    const logoutButton = screen.getByTestId('logout-btn');
+
+    await waitFor(() => {
+      fireEvent.press(logoutButton);
+    });
+
+    expect(mockReset).toHaveBeenCalled();
+    expect(mockAlert).toHaveBeenCalled();
+    expect(mockAlert).toHaveBeenCalledWith('Error', 'Something went wrong');
   });
 });
