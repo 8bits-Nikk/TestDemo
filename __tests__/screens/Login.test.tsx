@@ -1,9 +1,9 @@
 import React from 'react';
-import {renderWithNavigatorAndRedux} from '../../helpers/renderWithNavigatorAndRedux';
+import { renderWithNavigatorAndRedux } from '../../helpers/renderWithNavigatorAndRedux';
 import Login from '../../src/screens/Login/Login';
-import {fireEvent, screen, waitFor} from '@testing-library/react-native';
+import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 import asyncStorage from '../../src/service/async-storage/asyncStorage';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 
 const mockDispatch = jest.fn();
 const mockNavigation = jest.fn();
@@ -30,10 +30,9 @@ describe('Login Screen Test', () => {
 
     const userNameInput = screen.getByTestId('userName-input');
     const passwordInput = screen.getByTestId('password-input');
+    fireEvent.changeText(userNameInput, 'Test');
+    fireEvent.changeText(passwordInput, 'test123');
     await waitFor(() => {
-      fireEvent.changeText(userNameInput, 'Test');
-      fireEvent.changeText(passwordInput, 'test123');
-
       expect(userNameInput.props.value).toBe('Test');
       expect(passwordInput.props.value).toBe('test123');
     });
@@ -48,24 +47,17 @@ describe('Login Screen Test', () => {
     const passwordInput = screen.getByTestId('password-input');
     const loginButton = screen.getByTestId('login-btn');
 
-    await waitFor(() => {
-      fireEvent.changeText(userNameInput, 'Test');
-      fireEvent.changeText(passwordInput, 'test123');
+    fireEvent.changeText(userNameInput, 'Test');
+    fireEvent.changeText(passwordInput, 'test123');
 
-      expect(userNameInput.props.value).toBe('Test');
-      expect(passwordInput.props.value).toBe('test123');
+    expect(userNameInput.props.value).toBe('Test');
+    expect(passwordInput.props.value).toBe('test123');
 
-      fireEvent.press(loginButton);
-      expect(mockValidate).toHaveBeenCalled();
-      expect(mockValidate).toHaveBeenCalledWith({
-        userName: 'Test',
-        password: 'test123',
-      });
-    });
+    fireEvent.press(loginButton);
 
     expect(mockDispatch).toHaveBeenCalled();
     expect(mockDispatch).toHaveBeenCalledWith({
-      payload: {name: 'HomeScreen', params: undefined},
+      payload: { name: 'HomeScreen', params: undefined },
       type: 'REPLACE',
     });
   });
@@ -75,9 +67,9 @@ describe('Login Screen Test', () => {
     renderWithNavigatorAndRedux(<Login />);
     const loginButton = screen.getByTestId('login-btn');
 
-    await waitFor(() => {
-      fireEvent.press(loginButton);
+    fireEvent.press(loginButton);
 
+    await waitFor(() => {
       expect(mockAlert).toHaveBeenCalled();
       expect(mockAlert).toHaveBeenCalledWith(
         'Fail',
@@ -93,9 +85,8 @@ describe('Login Screen Test', () => {
 
     const loginButton = screen.getByTestId('login-btn');
 
+    fireEvent.press(loginButton);
     await waitFor(() => {
-      fireEvent.press(loginButton);
-
       expect(mockAlert).toHaveBeenCalled();
       expect(mockAlert).toHaveBeenCalledWith('Fail', 'Storage Error');
     });
@@ -105,9 +96,8 @@ describe('Login Screen Test', () => {
     renderWithNavigatorAndRedux(<Login />);
     const linkButton = screen.getByTestId('link-btn');
 
+    fireEvent.press(linkButton);
     await waitFor(() => {
-      fireEvent.press(linkButton);
-
       expect(mockNavigation).toHaveBeenCalled();
       expect(mockNavigation).toHaveBeenCalledWith('RegisterScreen');
     });

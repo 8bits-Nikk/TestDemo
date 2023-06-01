@@ -1,8 +1,8 @@
 import React from 'react';
-import {renderWithNavigatorAndRedux} from '../../helpers/renderWithNavigatorAndRedux';
-import {fireEvent, screen, waitFor} from '@testing-library/react-native';
+import { renderWithNavigatorAndRedux } from '../../helpers/renderWithNavigatorAndRedux';
+import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 import asyncStorage from '../../src/service/async-storage/asyncStorage';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 import Register from '../../src/screens/Register/Register';
 
 const mockDispatch = jest.fn();
@@ -29,10 +29,11 @@ describe('Register Screen Test', () => {
 
     const userNameInput = screen.getByTestId('userName-input');
     const passwordInput = screen.getByTestId('password-input');
-    await waitFor(() => {
-      fireEvent.changeText(userNameInput, 'Test');
-      fireEvent.changeText(passwordInput, 'test123');
 
+    fireEvent.changeText(userNameInput, 'Test');
+    fireEvent.changeText(passwordInput, 'test123');
+
+    await waitFor(() => {
       expect(userNameInput.props.value).toBe('Test');
       expect(passwordInput.props.value).toBe('test123');
     });
@@ -46,14 +47,15 @@ describe('Register Screen Test', () => {
     const passwordInput = screen.getByTestId('password-input');
     const registerButton = screen.getByTestId('register-btn');
 
+    fireEvent.changeText(userNameInput, 'Test');
+    fireEvent.changeText(passwordInput, 'test123');
+
+    expect(userNameInput.props.value).toBe('Test');
+    expect(passwordInput.props.value).toBe('test123');
+
+    fireEvent.press(registerButton);
+
     await waitFor(() => {
-      fireEvent.changeText(userNameInput, 'Test');
-      fireEvent.changeText(passwordInput, 'test123');
-
-      expect(userNameInput.props.value).toBe('Test');
-      expect(passwordInput.props.value).toBe('test123');
-
-      fireEvent.press(registerButton);
       expect(mockAddUser).toHaveBeenCalled();
       expect(mockAddUser).toHaveBeenCalledWith({
         userName: 'Test',
@@ -70,9 +72,8 @@ describe('Register Screen Test', () => {
     renderWithNavigatorAndRedux(<Register />);
     const registerButton = screen.getByTestId('register-btn');
 
+    fireEvent.press(registerButton);
     await waitFor(() => {
-      fireEvent.press(registerButton);
-
       expect(mockAlert).toHaveBeenCalled();
       expect(mockAlert).toHaveBeenCalledWith('Error');
     });
@@ -82,9 +83,8 @@ describe('Register Screen Test', () => {
     renderWithNavigatorAndRedux(<Register />);
     const linkButton = screen.getByTestId('link-btn');
 
+    fireEvent.press(linkButton);
     await waitFor(() => {
-      fireEvent.press(linkButton);
-
       expect(mockNavigation).toHaveBeenCalled();
       expect(mockNavigation).toHaveBeenCalledWith('LoginScreen');
     });

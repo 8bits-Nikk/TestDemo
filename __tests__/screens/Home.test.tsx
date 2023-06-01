@@ -5,7 +5,6 @@ import {
   cleanup,
   fireEvent,
   screen,
-  waitFor,
   within,
 } from '@testing-library/react-native';
 import {UsersActions} from '../../src/service/users';
@@ -144,10 +143,8 @@ describe('Async Redux Test', () => {
 
     const logoutButton = screen.getByTestId('logout-btn');
 
-    await waitFor(() => {
-      fireEvent.press(logoutButton);
-    });
-
+    fireEvent.press(logoutButton);
+   
     expect(mockReset).toHaveBeenCalled();
     expect(mockResetNavigation).toHaveBeenCalled();
     expect(mockResetNavigation).toHaveBeenCalledWith({
@@ -160,9 +157,7 @@ describe('Async Redux Test', () => {
 
     const logoutButton = screen.getByTestId('logout-btn');
 
-    await waitFor(() => {
-      fireEvent.press(logoutButton);
-    });
+    fireEvent.press(logoutButton);
 
     expect(mockReset).toHaveBeenCalled();
     expect(mockAlert).toHaveBeenCalled();
